@@ -1,4 +1,10 @@
-const getHtmlElementFromNode = ({ el }) => el;
+const getHtmlElementFromNode = node => {
+  return (
+    node.el ||
+    (Array.isArray(node.children) && node.children[0].el.parentNode) ||
+    {}
+  );
+};
 const addContext = (domElement, context) =>
   (domElement.__draggable_context = context);
 const getContext = domElement => domElement.__draggable_context;
