@@ -4460,9 +4460,8 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 
 
-var getHtmlElementFromNode = function getHtmlElementFromNode(_ref) {
-  var el = _ref.el;
-  return el;
+var getHtmlElementFromNode = function getHtmlElementFromNode(node) {
+  return node.el || Array.isArray(node.children) && node.children[0].el.parentNode || {};
 };
 
 var addContext = function addContext(domElement, context) {
@@ -4474,13 +4473,13 @@ var getContext = function getContext(domElement) {
 };
 
 var componentStructure_ComponentStructure = /*#__PURE__*/function () {
-  function ComponentStructure(_ref2) {
-    var _ref2$nodes = _ref2.nodes,
-        header = _ref2$nodes.header,
-        defaultNodes = _ref2$nodes.default,
-        footer = _ref2$nodes.footer,
-        root = _ref2.root,
-        realList = _ref2.realList;
+  function ComponentStructure(_ref) {
+    var _ref$nodes = _ref.nodes,
+        header = _ref$nodes.header,
+        defaultNodes = _ref$nodes.default,
+        footer = _ref$nodes.footer,
+        root = _ref.root,
+        realList = _ref.realList;
 
     _classCallCheck(this, ComponentStructure);
 
@@ -4884,6 +4883,7 @@ var draggableComponent = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["d
     spliceList: function spliceList() {
       var _arguments = arguments;
 
+      // @ts-ignore
       var spliceList = function spliceList(list) {
         return list.splice.apply(list, _toConsumableArray(_arguments));
       };
@@ -4937,7 +4937,8 @@ var draggableComponent = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["d
       }
 
       removeNode(evt.item);
-      var newIndex = this.getVmIndexFromDomIndex(evt.newIndex);
+      var newIndex = this.getVmIndexFromDomIndex(evt.newIndex); // @ts-ignore
+
       this.spliceList(newIndex, 0, element);
       var added = {
         element: element,
@@ -4957,7 +4958,8 @@ var draggableComponent = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["d
 
       var _this$context = this.context,
           oldIndex = _this$context.index,
-          element = _this$context.element;
+          element = _this$context.element; // @ts-ignore
+
       this.spliceList(oldIndex, 1);
       var removed = {
         element: element,
